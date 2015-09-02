@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linju.framework.mapper.AccountMapper">
+
+    <resultMap id="accountResult" type="Account">
+        <result column="id" property="id"/>
+        <result column="create_timestamp" property="createTimestamp"/>
+        <result column="last_change_timestamp" property="lastChangeTimestamp"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="photo_url" property="photoUrl"/>
+        <result column="duty" property="duty"/>
+        <result column="last_login_time" property="lastLoginTime"/>
+        <result column="last_login_address" property="lastLoginAddress"/>
+    </resultMap>
+
+    <sql id="column">
+        o.create_timestamp, o.last_change_timestamp, o.username, o.password, o.photo_url, o.duty, o.last_login_time, o.last_login_address
+    </sql>
+
+    <insert id="insert" parameterType="Account">
+        INSERT INTO wechat_account(create_timestamp, last_change_timestamp, username, password, photo_url, duty, last_login_time, last_login_address)
+        VALUES (now(), now(), #{username}, #{password}, #{photoUrl}, #{duty}, #{lastLoginTime}, #{lastLoginAddress})
+    </insert>
+
+    <update id="update" parameterType="Account">
+        UPDATE wechat_account set last_change_timestamp = now()
+        <if test="username != null and username != ''">
+            , username = #{username}
+        </if>
+        <if test="password != null and password != ''">
+            , password = #{password}
+        </if>
+        <if test="photoUrl != null and photoUrl != ''">
+            , photo_url = #{photoUrl}
+        </if>
+        <if test="duty != null and duty != ''">
+            , duty = #{duty}
+        </if>
+        <if test="lastLoginTime != null">
+            , last_login_time = #{lastLoginTime}
+        </if>
+        <if test="lastLoginAddress != null">
+            , last_login_address = #{lastLoginAddress}
+        </if>
+    </update>
+
+    <select id="getByCriteria" parameterType="com.linju.framework.criteria.AccountCriteria" resultMap="accountResult">
+        SELECT o.id,
+        <include refid="column"/>
+        FROM wechat_account o
+        <where>
+            <if test="username != null and username != ''">
+                o.username = #{username}
+            </if>
+        </where>
+    </select>
+</mapper>

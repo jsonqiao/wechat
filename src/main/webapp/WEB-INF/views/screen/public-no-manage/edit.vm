@@ -1,0 +1,25 @@
+<form>
+    <input data-bind="value: id">
+    <input data-bind="value: appId">
+    <input data-bind="value: appSecret">
+    <input data-bind="value: url">
+    <input data-bind="value: token">
+    <input data-bind="value: encodingAESKey">
+    <input data-bind="value: encodingType">
+</form>
+<script>
+    var viewModel = function () {
+        self = this;
+        self.id = "-1";
+        self.appId = "";
+        self.appSecret = "";
+        self.url = "";
+        self.token = "";
+        self.encodingAESKey = "22";
+        self.encodingType = "";
+    }
+
+    $(function () {
+        ko.applyBindings(new viewModel());
+    });
+</script>

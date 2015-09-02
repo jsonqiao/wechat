@@ -1,0 +1,17 @@
+<div class="gray-bg" style="height: 100%;">
+    <div class="middle-box text-center animated fadeInDown">
+        <h1>404</h1>
+
+        <h3 class="font-bold">Page Not Found</h3>
+
+        <div class="error-desc">
+            $!{errorMsg}
+            <form class="form-inline m-t" role="form" action="$!{rc.contextPath}/doPageSearch" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="页面">
+                </div>
+                <button type="submit" class="btn btn-primary">查询</button>
+            </form>
+        </div>
+    </div>
+</div>

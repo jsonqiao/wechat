@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 配置文件路径
+    <properties url="${mybatis.generator.config.properties}"/>
+    -->
+
+    <!-- 数据库驱动包路径 -->
+    <classPathEntry location="E:\temp\repo\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar"/>
+
+    <context id="MySqlTables" targetRuntime="MyBatis3">
+        <!-- 关闭注释 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库连接信息 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/wechat-app?characterEncoding=UTF-8"
+                        userId="root"
+                        password="123456"></jdbcConnection>
+
+        <!-- 生成的model包路径 -->
+        <javaModelGenerator targetPackage="com.linju.framework.model"
+                            targetProject="D:\framework\wechat-core\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 生成的xml mapper文件路径 -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="D:\framework\wechat-core\src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成的Dao接口包路径 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.linju.framework.mapper"
+                             targetProject="D:\framework\wechat-core\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 对应数据库表 -->
+        <table tableName="wechat_demo"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
+    </context>
+</generatorConfiguration>

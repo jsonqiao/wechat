@@ -1,0 +1,11 @@
+<div class="gray-bg" style="height: 100%;">
+    <div class="middle-box text-center animated fadeInDown">
+        <h1>500</h1>
+
+        <h3 class="font-bold">服务器内部错误</h3>
+
+        <div class="error-desc">
+            $!{errorMsg}<br/><a href="$!{rc.contextPath}/home" class="btn btn-primary m-t">主页</a>
+        </div>
+    </div>
+</div>

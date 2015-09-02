@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 微信配置类 -->
+    <bean id="wechatConfig" class="com.linju.framework.model.WechatConfig">
+        <property name="appId" value="${wechat.appId}"/>
+        <property name="appSecret" value="${wechat.appSecret}"/>
+        <property name="url" value="${wechat.url}"/>
+        <property name="token" value="${wechat.token}"/>
+        <property name="encodingAESKey" value="${wechat.encodingAESKey}"/>
+        <property name="encodingType" value="${wechat.encodingType}"/>
+    </bean>
+
+    <bean id="httpService" class="com.linju.framework.service.impl.DefaultHttpService"
+          init-method="init">
+        <property name="httpClientBuilder" ref="httpClientBuilder"/>
+    </bean>
+
+    <bean id="httpClientBuilder" class="org.apache.http.impl.client.HttpClientBuilder"/>
+
+    <bean id="httpResultBuilder" class="com.linju.framework.service.impl.DefaultHttpResultBuilder">
+        <property name="charset" value="${web.encoding}"/>
+    </bean>
+
+    <!-- accessToken 中控服务类 -->
+    <bean id="accessTokenService" class="com.linju.framework.service.impl.DefaultAccessTokenService"
+          init-method="init">
+        <property name="templateUrl">
+            <value><![CDATA[${accessToken.url}]]></value>
+        </property>
+        <property name="autoRefresh" value="${accessToken.autoRefresh}"/>
+        <property name="refreshPeriod" value="${accessToken.refreshPeriod}"/>
+        <property name="httpService" ref="httpService"/>
+        <property name="httpResultBuilder" ref="httpResultBuilder"/>
+        <property name="wechatConfigService" ref="wechatConfigServiceImpl"/>
+    </bean>
+
+    <bean id="messageProcessResolver" class="com.linju.framework.service.impl.DefaultMessageProcessResolver">
+        <property name="messageProcessors">
+            <list>
+                <bean class="com.linju.framework.service.message.TextMessageProcessor">
+                    <property name="encoding" value="${web.encoding}"/>
+                    <property name="templatePath" value="text.vm"/>
+                    <property name="velocityEngine" ref="messageVelocityEngine"/>
+                </bean>
+                <bean class="com.linju.framework.service.message.SubscribeEventProcessor">
+                    <property name="encoding" value="${web.encoding}"/>
+                    <property name="templatePath" value="image-text.vm"/>
+                    <property name="velocityEngine" ref="messageVelocityEngine"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="messageVelocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="resourceLoaderPath" value="/WEB-INF/views/template/"></property>
+        <property name="velocityProperties">
+            <map>
+                <entry key="input.encoding" value="${web.encoding}"></entry>
+                <entry key="output.encoding" value="${web.encoding}"></entry>
+            </map>
+        </property>
+    </bean>
+</beans>

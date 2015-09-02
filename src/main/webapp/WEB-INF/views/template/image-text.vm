@@ -1,0 +1,16 @@
+## 图文消息
+<xml>
+    <ToUserName><![CDATA[$!{toUser}]]></ToUserName>
+    <FromUserName><![CDATA[$!{fromUser}]]></FromUserName>
+    <CreateTime>$!{createTime}</CreateTime>
+    <MsgType><![CDATA[news]]></MsgType>
+    <ArticleCount><![CDATA[1]]></ArticleCount>
+    <Articles>
+        <item>
+            <Title><![CDATA[谯杨的个人公众号]]></Title>
+            <Description><![CDATA[欢迎您关注谯杨的个人公众号，此公众号会不定时的推送一些Java，Python相关的技术文章以及搞笑的故事]]></Description>
+            <PicUrl><![CDATA[http://img.ivsky.com/img/bizhi/pre/201412/01/zhaoyouting_gaoyuanyuan_hunli.jpg]]></PicUrl>
+            <Url><![CDATA[http://www.jsonqiao.com]]></Url>
+        </item>
+    </Articles>
+</xml>

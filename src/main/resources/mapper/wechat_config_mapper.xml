@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linju.framework.mapper.WechatConfigMapper">
+
+    <resultMap id="wechatConfigResult" type="WechatConfig">
+        <result column="id" property="id"/>
+        <result column="create_timestamp" property="createTimestamp"/>
+        <result column="last_change_timestamp" property="lastChangeTimestamp"/>
+        <result column="app_id" property="appId"/>
+        <result column="app_secret" property="appSecret"/>
+        <result column="url" property="url"/>
+        <result column="token" property="token"/>
+        <result column="encoding_aes_key" property="encodingAESKey"/>
+        <result column="encoding_type" property="encodingType"/>
+    </resultMap>
+
+    <sql id="column">
+        o.create_timestamp, o.last_change_timestamp, o.app_id, o.app_secret, o.url, o.token, o.encoding_aes_key, o.encoding_type
+    </sql>
+
+    <select id="findAll" resultMap="wechatConfigResult">
+        SELECT o.id,
+        <include refid="column"/>
+        FROM wechat_config o
+    </select>
+
+    <select id="findByCriteria" resultMap="wechatConfigResult"
+            parameterType="com.linju.framework.criteria.WechatConfigCriteria">
+        SELECT o.id,
+        <include refid="column"/>
+        FROM wechat_config o
+        <where></where>
+    </select>
+</mapper>
